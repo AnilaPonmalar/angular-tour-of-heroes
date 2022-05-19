@@ -1,0 +1,51 @@
+<p>hero-create-edit works!</p>
+
+<form class="form-group" [formGroup]="HeroForm" (ngSubmit)="onSubmit(HeroForm)">
+    <label for="hero-name">Hero Name: </label>
+    <input id="heroName" type="text" formControlName="heroName" required>
+
+    <label for="hero-email">Hero Email: </label>
+    <input id="email" type="text" formControlName="email" required>
+  
+  
+   
+    <div formGroupName="skills">
+      <label>Skills</label>
+      <input type="text" id="skillname" formControlName="skillName">
+      <input type="text" id="experienceInYears" placeholder="Experience in Years" formControlName="experienceInYears">
+
+      <div class="form-group">
+        <label>Proficiency</label>
+        <input type="radio" value="beginner" formControlName="proficiency">Beginner
+        <input type="radio" value="intermediate" formControlName="proficiency">Intermediate
+        <input type="radio" value="advanced" formControlName="proficiency">Advanced
+      </div>
+
+      <p>Complete the form to enable button.</p>
+      <button type="submit" [disabled]="!HeroForm.valid">Save</button>
+  
+    </div>
+  </form>
+
+  <table border="1">
+    <tr>
+      <th style="padding: 10px">FormGroup</th>
+      <th style="padding: 10px">FormControl (heroName)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ HeroForm.touched }}
+        <br/>  pristine :{{ HeroForm.pristine }}
+        <br/> dirty : {{ HeroForm.dirty }}
+        <br/> valid : {{ HeroForm.valid }}
+        <br/> Form Values : {{HeroForm.value | json}}
+      </td>
+      <td style="padding: 10px">
+         touched : {{ HeroForm.get('heroName')?.touched }}
+         <br/>  pristine : {{ HeroForm.get('heroName')?.pristine }}
+        <br/> dirty : {{ HeroForm.get('heroName')?.dirty }}
+        <br/> valid : {{ HeroForm.get('heroName')?.valid }}
+        <br/> FullName Value : {{ HeroForm.get('heroName')?.value}}
+      </td>
+    </tr>
+  </table>

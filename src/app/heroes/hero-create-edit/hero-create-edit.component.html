@@ -4,6 +4,13 @@
     <label for="hero-name">Hero Name: </label>
     <input id="heroName" type="text" formControlName="heroName" required>
 
+    <div *ngIf="heroName?.touched">
+      Name is touched
+    </div>
+    <div *ngIf="heroName?.touched">
+      Name is touched
+    </div>
+
     <label for="hero-email">Hero Email: </label>
     <input id="email" type="text" formControlName="email" required>
   

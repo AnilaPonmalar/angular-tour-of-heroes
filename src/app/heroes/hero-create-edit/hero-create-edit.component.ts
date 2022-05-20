@@ -17,7 +17,10 @@ export class HeroCreateEditComponent implements OnInit {
    isCreateHero: boolean = true;
    
    HeroForm =this.fb.group({
-      heroName : [''],
+      heroName : ['',[
+        Validators.required,
+        Validators.minLength(4) // <-- Here's how you pass in the custom validator.
+      ]],
       email : [''],
       skills: this.fb.group({
         skillName:  [''],
@@ -36,7 +39,8 @@ export class HeroCreateEditComponent implements OnInit {
     ngOnInit(): void {
       this.getHero();
     }
-  
+    get heroName() { return this.HeroForm.get('heroName'); }
+
     getHero(): void {
       this.heroUrlId = Number(this.route.snapshot.paramMap.get('id'));
       if(this.heroUrlId)
@@ -48,6 +52,7 @@ export class HeroCreateEditComponent implements OnInit {
      
     }
   
+    //setValue && patchValue
     updateProfile(hero : Hero) {
       this.HeroForm.patchValue({
         heroName: hero.name,

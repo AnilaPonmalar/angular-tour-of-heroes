@@ -47,7 +47,7 @@ doSomething(data :any): void {
         this.addressFormGroup.controls['city'].updateValueAndValidity();
         this.addressFormGroup.controls['state'].setValidators([Validators.required]);
         this.addressFormGroup.controls['state'].updateValueAndValidity();
-        this.addressFormGroup.controls['zip'].setValidators([Validators.required,Validators.maxLength(6)]);
+        this.addressFormGroup.controls['zip'].setValidators([Validators.required,Validators.minLength(6)]);
         this.addressFormGroup.controls['zip'].updateValueAndValidity();
       }
     else

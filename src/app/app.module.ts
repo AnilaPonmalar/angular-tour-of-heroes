@@ -14,8 +14,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeroCreateEditComponent } from './heroes/hero-create-edit/hero-create-edit.component';
-
-
+import { HeroAddressComponent } from './heroes/hero-address/hero-address.component';
+import { ForbiddenValidatorDirective } from './shared/forbidden-name.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,9 @@ import { HeroCreateEditComponent } from './heroes/hero-create-edit/hero-create-e
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    HeroCreateEditComponent
+    HeroCreateEditComponent,
+    HeroAddressComponent,
+    ForbiddenValidatorDirective,
   ],
   imports: [
     BrowserModule,

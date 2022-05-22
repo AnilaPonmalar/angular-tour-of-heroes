@@ -1,58 +1,100 @@
-<p>hero-create-edit works!</p>
+<h1><b>Hero Create - Edit </b></h1>
 
 <form class="form-group" [formGroup]="HeroForm" (ngSubmit)="onSubmit(HeroForm)">
-    <label for="hero-name">Hero Name: </label>
-    <input id="heroName" type="text" formControlName="heroName" required>
+    
+    <div class="form-group">
 
-    <div *ngIf="heroName?.touched">
-      Name is touched
-    </div>
-    <div *ngIf="heroName?.touched">
-      Name is touched
-    </div>
+      <label for="name">Hero Name: </label>
+      <input type="text" id="heroName" class="form-control"
+            formControlName="heroName" required>
 
-    <label for="hero-email">Hero Email: </label>
-    <input id="email" type="text" formControlName="email" required>
-  
-  
-   
-    <div formGroupName="skills">
-      <label>Skills</label>
-      <input type="text" id="skillname" formControlName="skillName">
-      <input type="text" id="experienceInYears" placeholder="Experience in Years" formControlName="experienceInYears">
+      <div *ngIf="heroName?.invalid && (heroName?.dirty || heroName?.touched)"
+          class="alert alert-danger">
 
-      <div class="form-group">
-        <label>Proficiency</label>
-        <input type="radio" value="beginner" formControlName="proficiency">Beginner
-        <input type="radio" value="intermediate" formControlName="proficiency">Intermediate
-        <input type="radio" value="advanced" formControlName="proficiency">Advanced
+        <div *ngIf="heroName?.errors?.['required']">
+          Name is required.
+        </div>
+        <div *ngIf="heroName?.errors?.['minlength']">
+          Name must be at least 4 characters long.
+        </div>
+        <div *ngIf="heroName?.errors?.['forbiddenName']">
+          Name cannot be Bob.
+        </div>
       </div>
+    </div>
+    <!-- <div *ngIf="heroName?.errors?.['required']">
+      Name is required.
+    </div> -->
+    <div class="form-group">
 
-      <p>Complete the form to enable button.</p>
+        <label for="hero-email">Hero Email: </label>
+        <input id="email" type="text" formControlName="email">
+
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          class="alert alert-danger">
+
+          <div *ngIf="email?.errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="email?.errors?.['pattern']">
+            Enter a Valid Email Address
+          </div>
+          
+       </div>
+
+    </div>
+    <label for="first-name">First Name: </label>
+    <input id="first-name" type="text" formControlName="firstName">
+  
+    <label for="last-name">Last Name: </label>
+    <input id="last-name" type="text" formControlName="lastName">
+  
+<br/>
+<br/>
+
+<div class="form-group form-check">
+  <label for="haveAddress" class="form-check-label">Have Address ? </label>
+  <input type="checkbox" formControlName="haveAddress" id="haveAddress" 
+  (change)="haveAddressCheck($event)"
+  class="form-check-input" /> 
+</div>
+
+<br/>
+<br/>
+<!-- //Event Emitted to pass the parent component like changes to child -->
+<app-hero-address *ngIf="showChildComponentAddress"  [addressFormGroup]="address"></app-hero-address>
+<!-- //Event Observable working model, all commented -->
+    <!-- <app-hero-address *ngIf="showChildComponentAddress" [events]="eventsSubject.asObservable()" [addressFormGroup]="address"></app-hero-address> -->
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <p>Complete the form to enable button.</p>
       <button type="submit" [disabled]="!HeroForm.valid">Save</button>
   
-    </div>
+      <button class="btn btn-secondary" type="reset" (click)="onReset()">Reset</button>
   </form>
 
   <table border="1">
     <tr>
       <th style="padding: 10px">FormGroup</th>
-      <th style="padding: 10px">FormControl (heroName)</th>
+      <th style="padding: 10px">FormControl (street)</th>
     </tr>
     <tr>
       <td style="padding: 10px">
         touched : {{ HeroForm.touched }}
         <br/>  pristine :{{ HeroForm.pristine }}
         <br/> dirty : {{ HeroForm.dirty }}
-        <br/> valid : {{ HeroForm.valid }}
+        <br/> form valid :<b> {{ HeroForm.valid }}</b>
         <br/> Form Values : {{HeroForm.value | json}}
       </td>
       <td style="padding: 10px">
-         touched : {{ HeroForm.get('heroName')?.touched }}
-         <br/>  pristine : {{ HeroForm.get('heroName')?.pristine }}
-        <br/> dirty : {{ HeroForm.get('heroName')?.dirty }}
-        <br/> valid : {{ HeroForm.get('heroName')?.valid }}
-        <br/> FullName Value : {{ HeroForm.get('heroName')?.value}}
+         touched : {{ HeroForm.get('address.street')?.touched }}
+         <br/>  pristine : {{ HeroForm.get('address.street')?.pristine }}
+        <br/> dirty : {{ HeroForm.get('address.street')?.dirty }}
+        <br/> valid :<b>{{ HeroForm.get('address.street')?.valid }}</b> 
+        <br/> FullName Value : {{ HeroForm.get('address.street')?.value}}
       </td>
     </tr>
   </table>
